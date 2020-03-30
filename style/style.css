@@ -13,6 +13,13 @@
 .headline .propaganda {
     width: 70%;
     text-align: left;
+    font-size: 2em;
+}
+@media (min-width:1024px) {
+	.headline .propaganda {
+		width: 60%;
+        font-size: 3em;
+	}
 }
 body {
     font-family: FoundersGrotesk, sans-serif;
@@ -31,22 +38,31 @@ body {
     width: 100%;
 }
 .scrolling-img .scrolling-img-info {
-    text-align: right;
+    text-align: center;
     position: absolute;
-    bottom: 0px;
+    bottom: -10%;
+	padding: 0em 0em .5em;
     width: 100%;
-    height: 100%;
-}
-.scrolling-img .scrolling-img-info p {
-    font-size: inherit;
-    padding-right: 10px;
-    position: relative;
-    top: .25em;
-    font-size: 1em;
+	background-color: var(--image-background-color);
 }
 @media (min-width:1280px) {
+	.scrolling-img .scrolling-img-info {
+		// padding: .5em 0em;
+	}
+}
+.scrolling-img .scrolling-img-info p {
+	padding-right: 10px;
+	position: relative;
+	font-size: 1em;
+	display: inline;
+}
+.scrolling-img .scrolling-img-info p a {
+	color: black;
+	font-weight: bold;
+}
+
+@media (min-width:1280px) {
     .scrolling-img .scrolling-img-info p {
-        top: .5em;
         font-size: 2em;
     }
 }

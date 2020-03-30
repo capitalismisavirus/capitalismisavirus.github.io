@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>SVG Scrolling Test</title>
+  <title>Capitalism is a Virus</title>
   <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
+  <!--<script src="https://unpkg.com/vue"></script>-->
 
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,9 +19,10 @@
             <h1 class="propaganda">{{ headline_message }}</h1>
         </div>
         <scroller
-            v-for="s in scroller_sections"
+            v-for="s in scrollers"
             :_svg_list="s.images"
             :is_mobile="is_mobile"
+            :propaganda="s.propaganda"
             :key="s.id"></scroller>
     </div>
     <script>
@@ -84,7 +86,7 @@
                 class="scrolling-img">
                 <img :src="getAsset('svg')">
                 <div
-                    v-if="showInfo"
+					v-if="showInfo"
                     class="scrolling-img-info">
                     <p v-for="f in formats">
                         <a
@@ -105,7 +107,7 @@
         },
         methods: {
             getAsset: function(f) {
-                return `assets/${this.asset}.${f}`;
+                return `assets/images/${this.asset}.${f}`;
             },
             mobileTest: function() {
                 this.$emit("mobile-test-event");
@@ -118,12 +120,8 @@
                 this.showInfo = false;
             },
             chooseRandomColor: function() {
-                // setPropToRandomColor("--image-background-color", colors);
-                var color_idx = getRandomInt(0, colors.length)
-                var color = colors[color_idx];
-                // let d = document.documentElement;
-                // d.style.setProperty(prop, color);
-                this.parentDivStl["background-color"] = color;
+                setPropToRandomColor("--image-background-color", colors);
+                this.parentDivStl["background-color"] = "var(--image-background-color)";
 
                 this.showInfo = true;
             }
@@ -135,7 +133,7 @@
         }
     });
     Vue.component('scroller', {
-        props: ['_svg_list', 'is_mobile'],
+        props: ['_svg_list', 'is_mobile','propaganda'],
         template: `
             <div class="scroller-container">
                 <div class="scroller">
@@ -160,7 +158,7 @@
                         </scrolling-image>
                     </div>
                 </div>
-                <h2 class="propaganda">PROPAGANDA</h2>
+                <h1 class="propaganda">{{ propaganda }}</h1>
             </div>
         `,
         data: function() {
@@ -195,39 +193,26 @@
     var image_lists = [
         {
             images: [
-                {link: "arrow-right"},
-                {link: "arrow-top"},
-                {link: "angle-right"},
-                {link: "angle-bottom"},
-                {link: "arrow-left"}
+                {link: "1"},
+                {link: "2"},
+                {link: "3"},
+                {link: "4"},
             ],
         },
         {
             images: [
-                {link: "arrow-right"},
-                {link: "arrow-top"},
-                {link: "angle-right"},
-                {link: "angle-bottom"},
-                {link: "arrow-left"}
+                {link: "5"},
+                {link: "6"},
+                {link: "7"},
+                {link: "8"},
             ],
         },
         {
             images: [
-                {link: "angle-bottom"},
-                {link: "angle-left"},
-                {link: "angle-right"},
-                {link: "angle-top"},
-                {link: "arrow-right"}
-            ],
-        },
-        {
-            images: [
-                {link: "angle-bottom"},
-                {link: "arrow-bottom"},
-                {link: "angle-left"},
-                {link: "arrow-bottom"},
-                {link: "angle-right"},
-                {link: "arrow-bottom"}
+                {link: "9"},
+                {link: "10"},
+                {link: "11"},
+                {link: "12"},
             ],
         }
     ];
@@ -271,8 +256,19 @@
         data: {
             scroller_sections: image_lists,
             is_mobile: is_mobile,
-            headline_message: "Capitalism is a virus driven by greed and exploitation. The time is now to blanket our communities in agitational art and educate our neighbors about democratic socialism."
+            headline_message: "Capitalism is a virus driven by greed and exploitation. The time is now to blanket our communities in agitational art and educate our neighbors about democratic socialism.",
+            propaganda: ["ONLY WE CAN SAVE US","TEXT YOUR NEIGHBORS","CALL YOUR MOTHER"],
         },
+        computed: {
+            scrollers: function() {
+                var scrollers = this.scroller_sections;
+                var prop = this.propaganda;
+                for (var i = 0; i < scrollers.length; i++) {
+                    scrollers[i].propaganda = prop[i];
+                }
+                return scrollers;
+            },
+        }
     });
     if (!is_mobile)
         start();
