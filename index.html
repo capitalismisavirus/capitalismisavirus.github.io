@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SVG Scrolling Test</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="style/font-style.css">
+  <link rel="stylesheet" href="style/style.css">
+  <link rel="stylesheet" media="(any-pointer:coarse)" href="style/mobile-style.css">
+
+</head>
+<body>
+    <div id="app">
+        <div class="headline">
+            <h1 class="propaganda">{{ headline_message }}</h1>
+        </div>
+        <scroller
+            v-for="s in scroller_sections"
+            :_svg_list="s.images"
+            :is_mobile="is_mobile"
+            :key="s.id"></scroller>
+    </div>
+    <script>
+
+	function makeStopper(elem) {
+	    return function() {
+	 	   return elem._scroll = false;
+	    };
+	}
+
+	function makeGoer(elem) {
+	    return function() {
+	 	   return elem._scroll = true;
+	    };
+	}
+
+    var scrollerContainer = null;
+    var scrollers = null;
+    function start() {
+        scrollerContainer = document.getElementsByClassName("scroller-container");
+        scrollers = document.getElementsByClassName("scroller");
+
+        var x = 0;
+        for (container of scrollerContainer) {
+            var s = container.children[0];
+            s.left = 0;
+            s.delta = (x % 3) + 1;
+            x += 1;
+
+            s._scroll = true;
+            s.addEventListener("mouseover", makeStopper(s));
+            s.addEventListener("mouseout", makeGoer(s));
+
+            continue;
+        }
+        moveLeft();
+    }
+    var stop = false;
+    function moveLeft() {
+        for (s of scrollers) {
+            if (s._scroll && !stop) {
+                var images = s.children[0];
+                s.left -= s.delta;
+                if (s.left <= -images.offsetWidth) {
+                    s.left += images.offsetWidth;
+                }
+                s.style.left = s.left + "px";
+            }
+        }
+        setTimeout(moveLeft, 25);
+    }
+    Vue.component('scrolling-image', {
+        props: ['asset', 'tick'],
+        template: `
+            <div
+                @mouseleave="chooseInheritColor"
+                @mouseenter="chooseRandomColor"
+                @touchend="mobileTest"
+
+                :style="parentDivStl"
+                class="scrolling-img">
+                <img :src="getAsset('svg')">
+                <div
+                    v-if="showInfo"
+                    class="scrolling-img-info">
+                    <p v-for="f in formats">
+                        <a
+                            :href="getAsset(f)">{{ f }}</a>
+                    </p>
+                    </div>
+                </div>
+            </div>
+        `,
+        data: function() {
+            return {
+                parentDivStl: {
+                    "background-color": "inherit"
+                },
+                showInfo: false,
+                formats: ["pdf","svg","png"]
+            }
+        },
+        methods: {
+            getAsset: function(f) {
+                return `assets/${this.asset}.${f}`;
+            },
+            mobileTest: function() {
+                this.$emit("mobile-test-event");
+                this.$nextTick(function() {
+                    this.chooseRandomColor();
+                });
+            },
+            chooseInheritColor: function() {
+                this.parentDivStl["background-color"] = "inherit";
+                this.showInfo = false;
+            },
+            chooseRandomColor: function() {
+                // setPropToRandomColor("--image-background-color", colors);
+                var color_idx = getRandomInt(0, colors.length)
+                var color = colors[color_idx];
+                // let d = document.documentElement;
+                // d.style.setProperty(prop, color);
+                this.parentDivStl["background-color"] = color;
+
+                this.showInfo = true;
+            }
+        },
+        watch: {
+            tick: function() {
+                this.chooseInheritColor();
+            }
+        }
+    });
+    Vue.component('scroller', {
+        props: ['_svg_list', 'is_mobile'],
+        template: `
+            <div class="scroller-container">
+                <div class="scroller">
+                    <div class="images">
+                        <scrolling-image
+                            @mobile-test-event="mobileTest"
+                            v-for="s in scroller_images_1"
+                            
+                            :tick="tick"
+                            :asset="s.link"
+                            :key="s.id">
+                        </scrolling-image>
+                    </div>
+                    <div v-if="!is_mobile" class="images">
+                        <scrolling-image
+                            @mobile-test-event="mobileTest"
+                            v-for="s in scroller_images_2"
+                            
+                            :tick="tick"
+                            :asset="s.link"
+                            :key="s.id">
+                        </scrolling-image>
+                    </div>
+                </div>
+                <h2 class="propaganda">PROPAGANDA</h2>
+            </div>
+        `,
+        data: function() {
+            return {
+                tick: false,
+            }
+        },
+        methods: {
+            mobileTest: function() {
+                this.tick = !this.tick;
+            },
+        },
+        computed: {
+            scroller_images_1: function () {
+                var i = 0;
+                var list = this._svg_list;
+                for (s of list) {
+                    s.id = "img" + i++;
+                }
+                return list;
+            },
+            scroller_images_2: function () {
+                var i = this._svg_list.length;
+                var list = this._svg_list;
+                for (s of list) {
+                    s.id = "img" + this.i++;
+                }
+                return list;
+            }
+        }
+    });
+    var image_lists = [
+        {
+            images: [
+                {link: "arrow-right"},
+                {link: "arrow-top"},
+                {link: "angle-right"},
+                {link: "angle-bottom"},
+                {link: "arrow-left"}
+            ],
+        },
+        {
+            images: [
+                {link: "arrow-right"},
+                {link: "arrow-top"},
+                {link: "angle-right"},
+                {link: "angle-bottom"},
+                {link: "arrow-left"}
+            ],
+        },
+        {
+            images: [
+                {link: "angle-bottom"},
+                {link: "angle-left"},
+                {link: "angle-right"},
+                {link: "angle-top"},
+                {link: "arrow-right"}
+            ],
+        },
+        {
+            images: [
+                {link: "angle-bottom"},
+                {link: "arrow-bottom"},
+                {link: "angle-left"},
+                {link: "arrow-bottom"},
+                {link: "angle-right"},
+                {link: "arrow-bottom"}
+            ],
+        }
+    ];
+	function getRandomInt(min, max) {
+	 	min = Math.ceil(min);
+	  	max = Math.floor(max);
+	  	return Math.floor(Math.random() * (max - min)) + min;
+	}
+    function setPropToRandomColor(prop, colors) {
+        var color_idx = getRandomInt(0, colors.length)
+        var color = colors[color_idx];
+        let d = document.documentElement;
+        d.style.setProperty(prop, color);
+        return color_idx;
+    }
+    var colors = [
+        "rgb(245 ,65 ,92)",
+        "rgb(168 ,214 ,0)",
+        "rgb(125 ,125 ,255)",
+        "rgb(255 ,156 ,26)",
+        "rgb(6 ,220 ,255)",
+        "rgb(255 ,0 ,169)",
+        "rgb(255 ,215 ,0)"]
+    var idx = setPropToRandomColor("--website-background-color", colors);
+    colors[idx] = colors[colors.length - 1];
+    colors.pop();
+    // setPropToRandomColor("--image-background-color", colors);
+
+    var computedStyle = getComputedStyle(document.documentElement);
+    var is_mobile = computedStyle.getPropertyValue("--is-mobile") !== "";
+
+    var i = 0;
+    for (il of image_lists) {
+        il.id = i++;
+        for (im of il.images) {
+            im.id = i++;
+        }
+    }
+    var app = new Vue({
+        el: "#app",
+        data: {
+            scroller_sections: image_lists,
+            is_mobile: is_mobile,
+            headline_message: "Capitalism is a virus driven by greed and exploitation. The time is now to blanket our communities in agitational art and educate our neighbors about democratic socialism."
+        },
+    });
+    if (!is_mobile)
+        start();
+    </script>
+</body>
