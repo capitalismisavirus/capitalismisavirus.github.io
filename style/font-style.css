@@ -1,23 +1,23 @@
 @font-face {
-        font-family: FoundersGrotestk;
-        src: url("assets/fonts/Founders Grotestk - Regular.otf") format("opentype");
+        font-family: FoundersGrotesk;
+        src: url("fonts/Founders Grotesk - Regular.otf") format("opentype");
 }
 
 @font-face {
-        font-family: FoundersGrotestk;
+        font-family: FoundersGrotesk;
         font-weight: bold;
-        src: url("assets/fonts/Founders Grotestk - Bold.otf") format("opentype");
+        src: url("fonts/Founders Grotesk - Bold.otf") format("opentype");
 }
 
 @font-face {
-        font-family: FoundersGrotestk;
+        font-family: FoundersGrotesk;
         font-style: italic;
-        src: url("assets/fonts/Founders Grotestk - Regular Italic.otf") format("opentype");
+        src: url("fonts/Founders Grotesk - Regular Italic.otf") format("opentype");
 }
 
 @font-face {
-        font-family: FoundersGrotestk;
+        font-family: FoundersGrotesk;
         font-style: italic;
         font-weight: bold;
-        src: url("assets/fonts/Founders Grotestk - Bold Italic.otf") format("opentype");
+        src: url("fonts/Founders Grotesk - Bold Italic.otf") format("opentype");
 }
