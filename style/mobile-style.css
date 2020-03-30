@@ -9,6 +9,7 @@
 .scrolling-img {
     display: block;
     width: 100%;
+    padding: 1vh;
 }
 
 .scrolling-img .scrolling-img-info p {
@@ -37,4 +38,16 @@
 
 .propaganda {
     font-size: 3vh;
+}
+
+.scroller-container .propaganda {
+    font-style: italic;
+    font-size: 4vh;
+    padding: 1vh 0vh .5vh;
+    color: var(--website-background-color);
+    background-color: black;
+}
+
+.scroller-container{
+    padding: 1vh 0vh;
 }
