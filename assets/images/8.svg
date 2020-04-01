@@ -20,7 +20,7 @@
    inkscape:version="0.92.4 (5da689c313, 2019-01-14)"><metadata
    id="metadata964"><rdf:RDF><cc:Work
        rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
-         rdf:resource="http://purl.org/dc/dcmitype/StillImage" /></cc:Work></rdf:RDF></metadata><defs
+         rdf:resource="http://purl.org/dc/dcmitype/StillImage" /><dc:title></dc:title></cc:Work></rdf:RDF></metadata><defs
    id="defs962">
 	
 </defs><sodipodi:namedview
@@ -36,13 +36,14 @@
    inkscape:window-height="1001"
    id="namedview960"
    showgrid="false"
-   inkscape:zoom="12.339869"
-   inkscape:cx="49.70161"
-   inkscape:cy="123.76439"
+   inkscape:zoom="1.5424836"
+   inkscape:cx="357.03985"
+   inkscape:cy="338.80895"
    inkscape:window-x="-9"
    inkscape:window-y="-9"
    inkscape:window-maximized="1"
-   inkscape:current-layer="svg958" />
+   inkscape:current-layer="svg958"
+   inkscape:pagecheckerboard="true" />
 <style
    type="text/css"
    id="style809">
@@ -278,31 +279,18 @@
      class="st27 st28"
      id="tspan880">org</tspan></text>
 
+
 	</g>
 </g>
 <g
    id="g955">
 		
 		
-		<path
-   style="fill:#ffffff"
-   inkscape:connector-curvature="0"
-   id="path891"
-   d="m 37.61,234.79 h 0.21 l -0.36,-1.98 c -0.24,-1.17 -0.6,-1.86 -1.47,-1.86 -0.69,0 -1.14,0.54 -1.14,1.35 0,1.38 1.02,2.49 2.76,2.49 z"
-   class="st5" />
 		
 		
-		<path
-   style="fill:#ffffff"
-   inkscape:connector-curvature="0"
-   id="path897"
-   d="m 37.61,183.62 h 0.21 l -0.36,-1.98 c -0.24,-1.17 -0.6,-1.86 -1.47,-1.86 -0.69,0 -1.14,0.54 -1.14,1.35 0,1.37 1.02,2.49 2.76,2.49 z"
-   class="st5" />
-		<polygon
-   style="fill:#ffffff"
-   id="polygon899"
-   points="39.5,339.73 45.08,337.57 45.08,337.45 39.5,335.29 "
-   class="st5" />
+		
+		
+		
 		
 		<path
    inkscape:connector-curvature="0"
