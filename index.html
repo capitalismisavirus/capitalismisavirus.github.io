@@ -80,7 +80,9 @@
             <div
                 @mouseleave="chooseInheritColor"
                 @mouseenter="chooseRandomColor"
-                @touchend="mobileTest"
+                @touchstart="touchstart"
+                @touchmove="touchmove"
+                @touchend="touchend"
 
                 :style="parentDivStl"
                 class="scrolling-img">
@@ -102,18 +104,27 @@
                     "background-color": "inherit"
                 },
                 showInfo: false,
-                formats: ["pdf","svg","png"]
+                formats: ["pdf","svg","png"],
+                readyMobileEvent: false
             }
         },
         methods: {
             getAsset: function(f) {
                 return `assets/images/${this.asset}.${f}`;
             },
-            mobileTest: function() {
-                this.$emit("mobile-test-event");
-                this.$nextTick(function() {
-                    this.chooseRandomColor();
-                });
+            touchstart: function() {
+                this.readyMobileEvent = true;
+            },
+            touchmove: function() {
+                this.readyMobileEvent = false;
+            },
+            touchend: function() {
+                if (this.readyMobileEvent) {
+                    this.$emit("mobile-test-event");
+                    this.$nextTick(function() {
+                        this.chooseRandomColor();
+                    });
+                }
             },
             chooseInheritColor: function() {
                 this.parentDivStl["background-color"] = "inherit";
