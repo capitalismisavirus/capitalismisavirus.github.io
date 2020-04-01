@@ -19,18 +19,24 @@ body {
     text-align: left;
     font-size: 2em;
 }
+.scroller-container .propaganda {
+    font-style: italic;
+    font-size: 2em;
+    padding: 1em 0em .5em;
+    color: var(--website-background-color);
+    background-color: black;
+}
 @media (min-width:1024px) {
 	.headline .propaganda {
 		width: 60%;
         font-size: 3em;
 	}
-}
-.scroller-container .propaganda {
-    font-style: italic;
-    font-size: 4vh;
-    padding: 1em 0em .5em;
-    color: var(--website-background-color);
-    background-color: black;
+    .scroller-container .propaganda {
+        font-size: 3em;
+        padding: 1em 0em .5em;
+        background-color: black;
+        word-spacing: .5em;
+    }
 }
 .scroller-container {
     overflow: hidden;
