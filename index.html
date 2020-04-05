@@ -46,8 +46,7 @@
         scrollers = document.getElementsByClassName("scroller");
 
         var x = 0;
-        for (container of scrollerContainer) {
-            var s = container.children[0];
+        for (s of scrollers) {
             s.left = 0;
             s.delta = (x % 3) + 1;
             x += 1;
@@ -88,23 +87,21 @@
                 class="scrolling-img">
                 <img :src="getAsset('svg')">
                 <div
-					v-if="showInfo"
+                    v-if="showInfo"
                     class="scrolling-img-info">
-                    <p v-for="f in formats">
-                        <a
-                            :href="getAsset(f)">{{ f }}</a>
-                    </p>
+                        <p><a :href="getAsset('pdf')">print</a></p>
+                        <p><a href="#" @click="generatePng" >share</a></p>
+                        <p><a href="#">learn</a></p>
                     </div>
                 </div>
             </div>
         `,
         data: function() {
             return {
+                showInfo: false,
                 parentDivStl: {
                     "background-color": "inherit"
                 },
-                showInfo: false,
-                formats: ["pdf","svg","png"],
                 readyMobileEvent: false
             }
         },
@@ -133,14 +130,51 @@
             chooseRandomColor: function() {
                 setPropToRandomColor("--image-background-color", colors);
                 this.parentDivStl["background-color"] = "var(--image-background-color)";
-
                 this.showInfo = true;
-            }
+            },
+            // highlightPairedImg: function() {
+            //     var pair;
+            //     var assetNum = parseInt(this.asset);
+            //     if ((assetNum & 1) === 0) {
+            //         pair = ["" + (assetNum - 1), "" + assetNum];
+            //     } else {
+            //         pair = ["" + assetNum, "" + (assetNum + 1)];
+            //     }
+            //     this.$emit("notify-paired-img", pair);
+            // },
+            generatePng: function(event) {
+                var img = new Image();
+                img.src = this.getAsset("png");
+                var color_idx = getRandomInt(0, colors.length)
+                var color = colors[color_idx];
+
+                var c = document.createElement("canvas");
+                var ctx = c.getContext("2d");
+                var w = img.width;
+                var h = img.height;
+                c.width = w;
+                c.height = h;
+                ctx.fillStyle = color;
+                ctx.rect(0, 0, w, h);
+                ctx.fill('evenodd');
+                ctx.drawImage(img, 0, 0);
+
+                if (event) {
+                    event.target.download = `propoganda${this.asset}.png`;
+                    event.target.href = c.toDataURL("image/png");
+                }
+            },
         },
         watch: {
             tick: function() {
                 this.chooseInheritColor();
-            }
+            },
+            // highlight: function() {
+            //     var bg = this.highlight
+            //         ? "var(--image-background-color)"
+            //         : "inherit";
+            //     this.parentDivStl["background-color"] = bg;
+            // },
         }
     });
     Vue.component('scroller', {
@@ -181,23 +215,33 @@
             mobileTest: function() {
                 this.tick = !this.tick;
             },
-        },
-        computed: {
-            scroller_images_1: function () {
-                var i = 0;
-                var list = this._svg_list;
-                for (s of list) {
-                    s.id = "img" + i++;
+            // notifyPairedImgs: function(pair) {
+            //     this.highlighted = pair;
+            // },
+            getScrollerInfo: function(i) {
+                var list = []
+                for (s of this._svg_list) {
+                    var obj = Object.assign({}, s);
+                    // var highlight = false;
+                    // for (h of this.highlighted) {
+                    //     if (s.link === h) {
+                    //         highlight = true;
+                    //         break;
+                    //     }
+                    // }
+                    // obj.highlighted = highlight;
+                    obj.id = "img" + i++;
+                    list.push(obj);
                 }
                 return list;
             },
+        },
+        computed: {
+            scroller_images_1: function () {
+                return this.getScrollerInfo(0);
+            },
             scroller_images_2: function () {
-                var i = this._svg_list.length;
-                var list = this._svg_list;
-                for (s of list) {
-                    s.id = "img" + this.i++;
-                }
-                return list;
+                return this.getScrollerInfo(this._svg_list.length);
             }
         }
     });

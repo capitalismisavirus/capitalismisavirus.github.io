@@ -69,10 +69,14 @@ body {
 	position: relative;
 	font-size: 1em;
 	display: inline;
+    margin: 5px 0px 0px;
 }
 .scrolling-img .scrolling-img-info p a {
-	color: black;
+    padding: 0px 5px 5px;
+    background-color: black;
+	color: var(--image-background-color);
 	font-weight: bold;
+    font-family: "Times New Roman";
 }
 
 @media (min-width:1280px) {
