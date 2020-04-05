@@ -5,22 +5,13 @@
   <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
   <!--<script src="https://unpkg.com/vue"></script>-->
 
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-162771148-1"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'UA-162771148-1');
-  </script>
-
 
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link rel="stylesheet" href="style/font-style.css">
-  <link rel="stylesheet" href="style/style.css">
-  <link rel="stylesheet" media="(any-pointer:coarse)" href="style/mobile-style.css">
+  <link rel="stylesheet" href="../style/font-style.css">
+  <link rel="stylesheet" href="../style/style.css">
+  <link rel="stylesheet" media="(any-pointer:coarse)" href="../style/mobile-style.css">
 
 </head>
 <body>
@@ -117,7 +108,7 @@
         },
         methods: {
             getAsset: function(f) {
-                return `assets/images/${this.asset}.${f}`;
+                return `../assets/images/${this.asset}.${f}`;
             },
             touchstart: function() {
                 this.readyMobileEvent = true;
