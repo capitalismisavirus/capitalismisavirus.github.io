@@ -160,20 +160,22 @@
                 var color_idx = getRandomInt(0, colors.length)
                 var color = colors[color_idx];
 
-                var c = document.createElement("canvas");
-                var ctx = c.getContext("2d");
-                var w = img.width;
-                var h = img.height;
-                c.width = w;
-                c.height = h;
-                ctx.fillStyle = color;
-                ctx.rect(0, 0, w, h);
-                ctx.fill('evenodd');
-                ctx.drawImage(img, 0, 0);
+                img.onload = function() {
+                    var c = document.createElement("canvas");
+                    var ctx = c.getContext("2d");
+                    var w = img.width;
+                    var h = img.height;
+                    c.width = w;
+                    c.height = h;
+                    ctx.fillStyle = color;
+                    ctx.rect(0, 0, w, h);
+                    ctx.fill('evenodd');
+                    ctx.drawImage(img, 0, 0);
 
-                if (event) {
-                    event.target.download = `propoganda${this.asset}.png`;
-                    event.target.href = c.toDataURL("image/png");
+                    var a = document.createElement("a");
+                    a.download = `propoganda${this.asset}.png`;
+                    a.href = c.toDataURL("image/png");
+                    a.click();
                 }
             },
         },
