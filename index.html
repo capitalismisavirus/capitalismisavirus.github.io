@@ -26,7 +26,9 @@
 <body>
     <div id="app">
         <div class="headline">
-            <h1 class="propaganda">{{ headline_message }}</h1>
+            <h1>Capitalism is a Virus</h1>
+            <h2>The time is now to blanket our communities in agitational art and educate our neighbors about democratic socialism.</h2>
+            <h2>Get Started Now! - <a href="/documents/poster_starter_kit.pdf">Download Art</a> and then <a href="/documents/capitalism_virus_readme.pdf">Post it Up</a></h2>
         </div>
         <scroller
             v-for="s in scrollers"
@@ -321,7 +323,7 @@
         data: {
             scroller_sections: image_lists,
             is_mobile: is_mobile,
-            headline_message: "Capitalism is a virus driven by greed and exploitation. The time is now to blanket our communities in agitational art and educate our neighbors about democratic socialism.",
+            headline_message: "",
             propaganda: ["ONLY WE CAN SAVE US","TEXT YOUR NEIGHBORS","CALL YOUR MOTHER"],
         },
         computed: {
