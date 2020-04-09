@@ -19,12 +19,27 @@ body {
     text-align: left;
     font-size: 2em;
 }
+.headline .propaganda a {
+	font-weight: normal;
+    padding: 5px 0px 0px;
+
+    color: black;
+    background-color: black;
+	color: var(--website-background-color);
+}
+.headline .propaganda a:hover {
+    background-color: var(--image-background-color);
+    color: black;
+}
 .scroller-container .propaganda {
     font-style: italic;
     font-size: 2em;
     padding: 1em 0em .5em;
     color: var(--website-background-color);
     background-color: black;
+}
+.scroller-container .propaganda a {
+    color: var(--website-background-color);
 }
 @media (min-width:1024px) {
 	.headline .propaganda {

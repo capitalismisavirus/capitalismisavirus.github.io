@@ -14,9 +14,9 @@
     gtag('config', 'UA-162771148-1');
   </script>
 
-
-
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <script type="text/javascript" language="javascript" src="js/get_images.js"></script> 
 
   <link rel="stylesheet" href="style/font-style.css">
   <link rel="stylesheet" href="style/style.css">
@@ -26,9 +26,23 @@
 <body>
     <div id="app">
         <div class="headline">
-            <h1>Capitalism is a Virus</h1>
-            <h2>The time is now to blanket our communities in agitational art and educate our neighbors about democratic socialism.</h2>
-            <h2><a href="/documents/capitalism_virus_readme.pdf">Get Started Now!</a> <a href="/documents/stapling_hands_v1.zip">Download Art</a></h2>
+            <!-- <h1 class="propaganda">Capitalism is a Virus</h1> -->
+            <!-- <h2 class="propaganda">The time is now to blanket our communities in agitational art and educate our neighbors about democratic socialism.</h2> -->
+            <h1 class="propaganda">
+                Capitalism is a virus driven by greed and exploitation.
+                The time is now to blanket our communities in
+                <a @mouseover="chooseRandomColor" href="documents/stapling_hands_v1.zip">political art</a>
+                that inspires working class solidarity, teaches
+                policy demands, and shares democratic socialist values.
+                <a @mouseover="chooseRandomColor" href="documents/capitalism_virus_readme.pdf">Get Started</a>
+            </h1>
+        </div>
+        <div class="scroller-container">
+            <h1 class="propaganda">
+                <a target="_blank" href="https://twitter.com/intent/tweet?text=The time is now to blanket our communities in political art that inspires working class solidarity, teaches policy demands, and shares democratic socialist values.&hashtags=capitalismisavirus&url=https://www.capitalismisavirus.org">
+                    #CAPITALISMISAVIRUS
+                </a>
+            </h1>
         </div>
         <scroller
             v-for="s in scrollers"
@@ -97,11 +111,11 @@
 
                 :style="parentDivStl"
                 class="scrolling-img">
-                <img :src="getAsset('svg')">
+                <img :src="svg_path">
                 <div
                     v-if="showInfo"
                     class="scrolling-img-info">
-                        <p><a :href="getAsset('pdf')">print</a></p>
+                        <p><a href="documents/poster_starter_kit.pdf">print</a></p>
                         <p><a href="#" @click="generatePng" >share</a></p>
                     </div>
                 </div>
@@ -113,13 +127,11 @@
                 parentDivStl: {
                     "background-color": "inherit"
                 },
-                readyMobileEvent: false
+                readyMobileEvent: false,
+                svg_path: `assets/svg_all/${this.asset}`,
             }
         },
         methods: {
-            getAsset: function(f) {
-                return `assets/images/${this.asset}.${f}`;
-            },
             touchstart: function() {
                 this.readyMobileEvent = true;
             },
@@ -155,15 +167,17 @@
             // },
             generatePng: function(event) {
                 var img = new Image();
-                img.src = this.getAsset("png");
+                img.src = this.svg_path;
                 var color_idx = getRandomInt(0, colors.length)
                 var color = colors[color_idx];
 
                 img.onload = function() {
                     var c = document.createElement("canvas");
                     var ctx = c.getContext("2d");
-                    var w = img.width;
-                    var h = img.height;
+                    // var w = img.width;
+                    // var h = img.height;
+                    var w = 3301;
+                    var h = 2550;
                     c.width = w;
                     c.height = h;
                     ctx.fillStyle = color;
@@ -258,32 +272,6 @@
             }
         }
     });
-    var image_lists = [
-        {
-            images: [
-                {link: "1"},
-                {link: "2"},
-                {link: "3"},
-                {link: "4"},
-            ],
-        },
-        {
-            images: [
-                {link: "5"},
-                {link: "6"},
-                {link: "7"},
-                {link: "8"},
-            ],
-        },
-        {
-            images: [
-                {link: "9"},
-                {link: "10"},
-                {link: "11"},
-                {link: "12"},
-            ],
-        }
-    ];
 	function getRandomInt(min, max) {
 	 	min = Math.ceil(min);
 	  	max = Math.floor(max);
@@ -294,6 +282,7 @@
         var color = colors[color_idx];
         let d = document.documentElement;
         d.style.setProperty(prop, color);
+        console.log(color);
         return color_idx;
     }
     var colors = [
@@ -313,30 +302,29 @@
     var is_mobile = computedStyle.getPropertyValue("--is-mobile") !== "";
 
     var i = 0;
-    for (il of image_lists) {
-        il.id = i++;
-        for (im of il.images) {
-            im.id = i++;
-        }
-    }
     var app = new Vue({
         el: "#app",
         data: {
-            scroller_sections: image_lists,
+            image_lists: image_lists,
             is_mobile: is_mobile,
-            headline_message: "",
             propaganda: ["ONLY WE CAN SAVE US","TEXT YOUR NEIGHBORS","CALL YOUR MOTHER"],
         },
         computed: {
             scrollers: function() {
-                var scrollers = this.scroller_sections;
+                var scrollers = this.image_lists;
                 var prop = this.propaganda;
                 for (var i = 0; i < scrollers.length; i++) {
                     scrollers[i].propaganda = prop[i];
+                    scrollers[i].id = i;
                 }
                 return scrollers;
             },
-        }
+        },
+        methods: {
+            chooseRandomColor: function() {
+                setPropToRandomColor("--image-background-color", colors);
+            }
+        },
     });
     if (!is_mobile)
         start();
