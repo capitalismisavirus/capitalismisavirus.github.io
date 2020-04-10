@@ -194,30 +194,35 @@
             //     this.$emit("notify-paired-img", pair);
             // },
             generatePng: function(event) {
-                var img = new Image();
-                img.src = this.svg_path;
-                var color_idx = getRandomInt(0, colors.length)
-                var color = colors[color_idx];
+                var a = document.createElement("a");
+                a.download = `propoganda${this.asset}`;
+                a.href = this.svg_path;
+                a.click();
 
-                img.onload = function() {
-                    var c = document.createElement("canvas");
-                    var ctx = c.getContext("2d");
-                    // var w = img.width;
-                    // var h = img.height;
-                    var w = 3301;
-                    var h = 2550;
-                    c.width = w;
-                    c.height = h;
-                    ctx.fillStyle = color;
-                    ctx.rect(0, 0, w, h);
-                    ctx.fill('evenodd');
-                    ctx.drawImage(img, 0, 0);
+                // var img = new Image();
+                // img.src = this.svg_path;
+                // var color_idx = getRandomInt(0, colors.length)
+                // var color = colors[color_idx];
 
-                    var a = document.createElement("a");
-                    a.download = `propoganda${this.asset}.png`;
-                    a.href = c.toDataURL("image/png");
-                    a.click();
-                }
+                // img.onload = function() {
+                //     var c = document.createElement("canvas");
+                //     var ctx = c.getContext("2d");
+                //     // var w = img.width;
+                //     // var h = img.height;
+                //     var w = 3301;
+                //     var h = 2550;
+                //     c.width = w;
+                //     c.height = h;
+                //     ctx.fillStyle = color;
+                //     ctx.rect(0, 0, w, h);
+                //     ctx.fill('evenodd');
+                //     ctx.drawImage(img, 0, 0);
+
+                //     var a = document.createElement("a");
+                //     a.download = `propoganda${this.asset}.png`;
+                //     a.href = c.toDataURL("image/png");
+                //     a.click();
+                // }
             },
         },
         watch: {
