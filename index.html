@@ -16,7 +16,8 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <script type="text/javascript" language="javascript" src="js/get_images.js"></script> 
+  <script type="text/javascript" language="javascript" src="js/get_images.js"></script>
+  <script type="text/javascript" language="javascript" src="js/shuffle.js"></script>
 
   <link rel="stylesheet" href="style/font-style.css">
   <link rel="stylesheet" href="style/style.css">
@@ -51,6 +52,33 @@
             :propaganda="s.propaganda"
             :key="s.id"></scroller>
     </div>
+	<script>
+        function setCssProp(prop, value) {
+            let d = document.documentElement;
+            d.style.setProperty(prop, value);
+        }
+        function setImageBackground(colors) {
+            var color = colors[color_idx];
+            color_idx++;
+            if (color_idx >= colors.length) {
+                color_idx = 0;
+            }
+            setCssProp("--image-background-color", color);
+        }
+        var colors = [
+            "rgb(245 ,65 ,92)",
+            "rgb(168 ,214 ,0)",
+            "rgb(125 ,125 ,255)",
+            "rgb(255 ,156 ,26)",
+            "rgb(6 ,220 ,255)",
+            "rgb(255 ,0 ,169)",
+            "rgb(255 ,215 ,0)"]
+        var color_idx = 0;
+        colors = shuffle(colors);
+        setCssProp("--website-background-color", colors.pop());
+        setImageBackground(colors);
+	</script>
+
     <script>
 
 	function makeStopper(elem) {
@@ -151,7 +179,7 @@
                 this.showInfo = false;
             },
             chooseRandomColor: function() {
-                setPropToRandomColor("--image-background-color", colors);
+                setImageBackground(colors);
                 this.parentDivStl["background-color"] = "var(--image-background-color)";
                 this.showInfo = true;
             },
@@ -272,31 +300,6 @@
             }
         }
     });
-	function getRandomInt(min, max) {
-	 	min = Math.ceil(min);
-	  	max = Math.floor(max);
-	  	return Math.floor(Math.random() * (max - min)) + min;
-	}
-    function setPropToRandomColor(prop, colors) {
-        var color_idx = getRandomInt(0, colors.length)
-        var color = colors[color_idx];
-        let d = document.documentElement;
-        d.style.setProperty(prop, color);
-        console.log(color);
-        return color_idx;
-    }
-    var colors = [
-        "rgb(245 ,65 ,92)",
-        "rgb(168 ,214 ,0)",
-        "rgb(125 ,125 ,255)",
-        "rgb(255 ,156 ,26)",
-        "rgb(6 ,220 ,255)",
-        "rgb(255 ,0 ,169)",
-        "rgb(255 ,215 ,0)"]
-    var idx = setPropToRandomColor("--website-background-color", colors);
-    colors[idx] = colors[colors.length - 1];
-    colors.pop();
-    // setPropToRandomColor("--image-background-color", colors);
 
     var computedStyle = getComputedStyle(document.documentElement);
     var is_mobile = computedStyle.getPropertyValue("--is-mobile") !== "";
@@ -322,7 +325,7 @@
         },
         methods: {
             chooseRandomColor: function() {
-                setPropToRandomColor("--image-background-color", colors);
+                setImageBackground(colors);
             }
         },
     });
