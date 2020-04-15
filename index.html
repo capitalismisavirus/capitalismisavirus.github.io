@@ -32,7 +32,7 @@
             <h1 class="propaganda">
                 Capitalism is a virus driven by greed and exploitation.
                 The time is now to blanket our communities in
-                <a @mouseover="chooseRandomColor" href="documents/stapling_hands_v1.zip">political art</a>
+                <a @mouseover="chooseRandomColor" href="documents/stapling hands (v1.1).zip">political art</a>
                 that inspires working class solidarity, teaches
                 policy demands, and shares democratic socialist values.
                 <a @mouseover="chooseRandomColor" href="documents/capitalism_virus_readme.pdf">Get Started</a>
@@ -143,7 +143,7 @@
                 <div
                     v-if="showInfo"
                     class="scrolling-img-info">
-                        <p><a href="documents/poster_starter_kit.pdf">print</a></p>
+                        <p><a href="documents/Print - Starter Kit v1.1.pdf">print</a></p>
                         <p><a href="#" @click="generatePng" >share</a></p>
                     </div>
                 </div>
@@ -156,7 +156,8 @@
                     "background-color": "inherit"
                 },
                 readyMobileEvent: false,
-                svg_path: `assets/svg_all/${this.asset}`,
+                svg_path: `assets/svgs/${this.asset}.svg`,
+                png_path: `assets/pngs/${this.asset}.png`,
             }
         },
         methods: {
@@ -194,35 +195,31 @@
             //     this.$emit("notify-paired-img", pair);
             // },
             generatePng: function(event) {
+
+                var img = new Image();
                 var a = document.createElement("a");
-                a.download = `propoganda${this.asset}`;
-                a.href = this.svg_path;
-                a.click();
+                a.download = `${this.asset}.png`;
+                img.onload = function() {
+                    setImageBackground(colors);
+                    var color = colors[color_idx];
+                    var c = document.createElement("canvas");
+                    var ctx = c.getContext("2d");
+                    var w = img.width;
+                    var h = img.height;
+                    // var w = 3301;
+                    // var h = 2550;
+                    c.width = w;
+                    c.height = h;
+                    ctx.fillStyle = color;
+                    ctx.rect(0, 0, w, h);
+                    ctx.fill('evenodd');
+                    ctx.drawImage(img, 0, 0);
 
-                // var img = new Image();
-                // img.src = this.svg_path;
-                // var color_idx = getRandomInt(0, colors.length)
-                // var color = colors[color_idx];
+                    a.href = c.toDataURL("image/png");
+                    a.click();
+                }
 
-                // img.onload = function() {
-                //     var c = document.createElement("canvas");
-                //     var ctx = c.getContext("2d");
-                //     // var w = img.width;
-                //     // var h = img.height;
-                //     var w = 3301;
-                //     var h = 2550;
-                //     c.width = w;
-                //     c.height = h;
-                //     ctx.fillStyle = color;
-                //     ctx.rect(0, 0, w, h);
-                //     ctx.fill('evenodd');
-                //     ctx.drawImage(img, 0, 0);
-
-                //     var a = document.createElement("a");
-                //     a.download = `propoganda${this.asset}.png`;
-                //     a.href = c.toDataURL("image/png");
-                //     a.click();
-                // }
+                img.src = this.png_path;
             },
         },
         watch: {
