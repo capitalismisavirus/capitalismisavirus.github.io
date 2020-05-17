@@ -26,23 +26,26 @@
 </head>
 <body>
     <div id="app">
-        <div class="headline">
-            <!-- <h1 class="propaganda">Capitalism is a Virus</h1> -->
-            <!-- <h2 class="propaganda">The time is now to blanket our communities in agitational art and educate our neighbors about democratic socialism.</h2> -->
+        <div class="scroller-container">
             <h1 class="propaganda">
-                Capitalism is a virus driven by greed and exploitation.
-                The time is now to blanket our communities in
-                <a @mouseover="chooseRandomColor" href="documents/stapling hands (v1.1).zip">political art</a>
-                that inspires working class solidarity, teaches
-                policy demands, and shares democratic socialist values.
-                <a @mouseover="chooseRandomColor" href="documents/capitalism_virus_readme.pdf">Get Started</a>
+                CAPITALISM IS A VIRUS
             </h1>
+        </div>
+        <div class="headline">
+            <h1 class="propaganda">
+                It is driven by greed and exploitation.
+                The time is now to blanket our communities in
+                political art that inspires working class solidarity, teaches policy demands, and shares democratic socialist values.
+            </h1>
+            <ul class="propaganda">
+                <li><a @mouseover="chooseRandomColor" href="documents/capitalism_virus_readme.pdf">How To Staple</a></li>
+                <li><a @mouseover="chooseRandomColor" href="documents/Print - Starter Kit v1.1.pdf">Print Materials</a></li>
+                <li><a @mouseover="chooseRandomColor" href="https://docs.google.com/forms/d/e/1FAIpQLSezTQP-gXOxSvvDRfy5F-W89TRVnBBMfpxLAIkqoipUM5AbRg/viewform">Join Us</a></li>
+                <li><a target="_blank" @mouseover="chooseRandomColor" href="https://twitter.com/intent/tweet?text=The time is now to blanket our communities in political art that inspires working class solidarity, teaches policy demands, and shares democratic socialist values.&hashtags=capitalismisavirus&url=https://www.capitalismisavirus.org">Share</a></li>
         </div>
         <div class="scroller-container">
             <h1 class="propaganda">
-                <a target="_blank" href="https://twitter.com/intent/tweet?text=The time is now to blanket our communities in political art that inspires working class solidarity, teaches policy demands, and shares democratic socialist values.&hashtags=capitalismisavirus&url=https://www.capitalismisavirus.org">
-                    #CAPITALISMISAVIRUS
-                </a>
+                MEDICARE PARA TODOS
             </h1>
         </div>
         <scroller
@@ -127,7 +130,7 @@
         }
         setTimeout(moveLeft, 25);
     }
-    Vue.component('scrolling-image', {
+    Vue.component('scrolling-image', { // read this 
         props: ['asset', 'tick'],
         template: `
             <div
